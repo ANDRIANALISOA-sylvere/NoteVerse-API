@@ -14,7 +14,7 @@ const port = process.env.PORT || 8000;
 app.use("/api/auth", Authrouter);
 app.use("/api/user", UseRouter);
 app.get("/", (req, res) => {
-  res.send("API de gestion des notes fonctionne");
+  res.send("Welcome to NoteVerse API");
 });
 
 app.listen(port, () => {
