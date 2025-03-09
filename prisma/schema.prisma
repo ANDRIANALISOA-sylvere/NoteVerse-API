@@ -16,7 +16,7 @@ datasource db {
 model User {
   id        String   @id @default(uuid())
   name      String
-  email     String
+  email     String   @unique
   password  String
   notes     Note[]
   createdAt DateTime @default(now())
