@@ -29,3 +29,23 @@ export const getCurrentUser = async (req, res) => {
     });
   }
 };
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    return res.json(users);
+  } catch (error) {
+    return res.status(500).json({
+      message: "error fetching user: " + error,
+    });
+  }
+};
