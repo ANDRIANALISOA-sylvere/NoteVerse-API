@@ -80,3 +80,24 @@ export const updateNote = async (req, res) => {
     });
   }
 };
+
+export const deleteNote = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const note = await prisma.note.delete({
+      where: {
+        id,
+      },
+      include: {
+        User: true,
+        Category: true,
+      },
+    });
+
+    return res.json(note);
+  } catch (error) {
+    return res.status(500).json({
+      message: "error deleting note",
+    });
+  }
+};
