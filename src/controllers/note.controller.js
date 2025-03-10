@@ -49,3 +49,34 @@ export const getNotesByUser = async (req, res) => {
     });
   }
 };
+
+export const updateNote = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, content, categoryId } = req.body;
+    const notes = await prisma.note.update({
+      where: {
+        id,
+      },
+      data: {
+        title,
+        content,
+        Category: {
+          connect: {
+            id: categoryId,
+          },
+        },
+      },
+      include: {
+        User: true,
+        Category: true,
+      },
+    });
+
+    return res.json(notes);
+  } catch (error) {
+    return res.status(500).json({
+      message: "error updating notes",
+    });
+  }
+};
